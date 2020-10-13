@@ -1,14 +1,16 @@
-var dp = $("#display");
-var num1, num2, newStr;
-var arr = [];
-var optr = [];
-var total;
+let dp = $("#display");
+let num1, num2, newStr;
+let arr = [];
+let optr = [];
+let total;
 
+//event for clearing everything
 $("#clear").click(function () {
     dp.text("0");
     arr = [];
 });
 
+//click event for deleting one number from the display
 $("#delete").click(function () {
     if (dp.text().length == 1) {
         dp.text("0");
@@ -16,50 +18,18 @@ $("#delete").click(function () {
         newStr = dp.text().slice(0, -1);
         dp.text(newStr);
     }
-});''
-
-$("#add").click(function () {
-    var len = dp.text().length - 1;
-
-    if (dp.text()[len] == "+" || dp.text() == 0) dp.text() == dp.text();
-    else {
-        optr.push("+");
-        num1 = parseFloat(dp.text());
-        arr.push(num1);
-        $("#add").addClass("selected-optr");
-    }
 });
 
-$("#subtract").click(function () {
+//Event for selecting operator
+$(".operator").click(function () {
     var len = dp.text().length - 1;
-    if (dp.text()[len] == "-" || dp.text() == 0) dp.text() == dp.text();
-    else {
-        optr.push("-");
-        num1 = parseFloat(dp.text());
-        arr.push(num1);
-        $("#subtract").addClass("selected-optr");
-    }
-});
 
-$("#multiply").click(function () {
-    var len = dp.text().length - 1;
-    if (dp.text()[len] == "x" || dp.text() == 0) dp.text() == dp.text();
+    if (dp.text()[len] == this.innerHTML || dp.text() == 0) dp.text() == dp.text();
     else {
-        optr.push("x");
+        optr.push(this.innerHTML);
         num1 = parseFloat(dp.text());
         arr.push(num1);
-        $("#multiply").addClass("selected-optr");
-    }
-});
-
-$("#divide").click(function () {
-    var len = dp.text().length - 1;
-    if (dp.text()[len] == "/" || dp.text() == 0) dp.text() == dp.text();
-    else {
-        optr.push("/");
-        num1 = parseFloat(dp.text());
-        arr.push(num1);
-        $("#divide").addClass("selected-optr");
+        $(this).addClass("selected-optr");
     }
 });
 
@@ -87,8 +57,9 @@ $("#equals").click(function () {
     }
 });
 
+//Calculation 
 function solve() {
-    var ans, a;
+    let ans, a;
 
     switch (optr[optr.length - 1]) {
         case "+":
@@ -106,6 +77,8 @@ function solve() {
         case "/":
             ans = arr[arr.length - 2] / arr[arr.length - 1];
             break;
+
+        default: alert("Oops! Something went wrong.");
     }
 
     a = ans;
@@ -129,115 +102,16 @@ $("#decimal").click(function () {
     }
 });
 
-$("#zero").click(function () {
-    if (dp.text() == 0) dp.text("0");
+//Function for selecting numbers
+$(".number").click(function() {
+    if (dp.text() == 0) dp.text(this.innerHTML);
     else if (dp.text() == arr[arr.length - 1]) {
         dp.text("");
         $(".col-4").removeClass("selected-optr");
-        dp.append("0");
+        dp.append(this.innerHTML);
     } else if (dp.text().length == 13) {
         dp.text() == dp.text();
     } else {
-        dp.append("0");
+        dp.append(this.innerHTML);
     }
-});
-
-$("#one").click(function () {
-    if (dp.text() == 0) dp.text("1");
-    else if (dp.text() == arr[arr.length - 1]) {
-        dp.text("");
-        $(".col-4").removeClass("selected-optr");
-        dp.append("1");
-    } else if (dp.text().length == 13) {
-        dp.text() == dp.text();
-    } else dp.append("1");
-});
-
-$("#two").click(function () {
-    if (dp.text() == 0) dp.text("2");
-    else if (dp.text() == arr[arr.length - 1]) {
-        dp.text("");
-        $(".col-4").removeClass("selected-optr");
-        dp.append("2");
-    } else if (dp.text().length == 13) {
-        dp.text() == dp.text();
-    } else dp.append("2");
-});
-
-$("#three").click(function () {
-    if (dp.text() == 0) dp.text("3");
-    else if (dp.text() == arr[arr.length - 1]) {
-        dp.text("");
-        $(".col-4").removeClass("selected-optr");
-        dp.append("3");
-    } else if (dp.text().length == 13) {
-        dp.text() == dp.text();
-    } else dp.append("3");
-});
-
-$("#four").click(function () {
-    if (dp.text() == 0) dp.text("4");
-    else if (dp.text() == arr[arr.length - 1]) {
-        dp.text("");
-        $(".col-4").removeClass("selected-optr");
-        dp.append("4");
-    } else if (dp.text().length == 13) {
-        dp.text() == dp.text();
-    } else dp.append("4");
-});
-
-$("#five").click(function () {
-    if (dp.text() == 0) dp.text("5");
-    else if (dp.text() == arr[arr.length - 1]) {
-        dp.text("");
-        $(".col-4").removeClass("selected-optr");
-        dp.append("5");
-    } else if (dp.text().length == 13) {
-        dp.text() == dp.text();
-    } else dp.append("5");
-});
-
-$("#six").click(function () {
-    if (dp.text() == 0) dp.text("6");
-    else if (dp.text() == arr[arr.length - 1]) {
-        dp.text("");
-        $(".col-4").removeClass("selected-optr");
-        dp.append("6");
-    } else if (dp.text().length == 13) {
-        dp.text() == dp.text();
-    } else dp.append("6");
-});
-
-$("#seven").click(function () {
-    if (dp.text() == 0) dp.text("7");
-    else if (dp.text() == arr[arr.length - 1]) {
-        dp.text("");
-        $(".col-4").removeClass("selected-optr");
-        dp.append("7");
-    } else if (dp.text().length == 13) {
-        dp.text() == dp.text();
-    } else dp.append("7");
-});
-
-$("#eight").click(function () {
-    if (dp.text() == 0) dp.text("8");
-    else if (dp.text() == arr[arr.length - 1]) {
-        dp.text("");
-        $(".col-4").removeClass("selected-optr");
-        dp.append("8");
-    } else if (dp.text().length == 13) {
-        dp.text() == dp.text();
-    } else dp.append("8");
-});
-
-$("#nine").click(function () {
-    if (dp.text() == 0) {
-        dp.text("9");
-    } else if (dp.text().length == 13) {
-        dp.text() == dp.text();
-    } else if (dp.text() == arr[arr.length - 1]) {
-        dp.text("");
-        $(".col-4").removeClass("selected-optr");
-        dp.append("9");
-    } else dp.append("9");
 });
