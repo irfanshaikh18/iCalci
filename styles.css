@@ -106,7 +106,7 @@ button:focus {
   justify-content: flex-start;
 }
 
-.selected-optr {
+.selected-operator {
   background-color: white;
   color: #fe9505;
 }
