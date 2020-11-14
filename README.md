@@ -1,1 +1,1 @@
-# iCalculator
+# iCalci
