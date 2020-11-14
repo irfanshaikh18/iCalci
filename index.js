@@ -1,58 +1,59 @@
 //#5 - issue refactor code
 
 let dp = $("#display");
-let num1, num2, newStr;
+let num1, num2;
 let arr = [];
 let optr = [];
 let total;
 
-///EVENT FOR CLEARING EVERYTHING
+/* EVENT FOR CLEARING EVERYTHING */
 $("#clear").click(clearAll);
 
 function clearAll() {
 
-    ///empty the display_text_array and operator_array
+    /// empty the number's array and operator's array
     arr = [];
     optr = [];
 
-    ///set display text back to zero and remove any existing selected operator
+    /// set display text back to zero and remove any existing selected operator
     dp.text("0");
     $(".col-4").removeClass("selected-optr");
 }
 
 
-///EVENT FOR DELETING ONE NUMBER FROM THE DISPLAY
-$("#delete").click(deleteOneDigit);
+/* EVENT FOR TOGGLING SIGN */
+$("#change-sign").click(toggleSign);
 
-function deleteOneDigit() {
+function toggleSign() {
 
-    if (dp.text().length === 1) 
-    {
-        dp.text("0");
-    } 
-    //#4 - issue fix delete bug
-    else 
-    {
-        newStr = dp.text().slice(0, -1);
-        dp.text(newStr);
-    }
+    /// converting display text which is string into a floating number and
+    /// then multiplying it with -1 to change its sign.
+    let toggleNumSign = parseFloat(dp.text());
+    toggleNumSign *= -1;
+    arr.push(toggleNumSign);
+
+    /// setting number back to display text (i.e. into string data type) after toggling its sign. 
+    dp.text("" + toggleNumSign);
+
+    /// changing the toggleNumSign back to string because 'selectOperatorEvent' and 'equalBtnEvent' 
+    /// changes display text to float. Although the above line of code works even if we don't change 
+    /// it's sign.
 }
 
 
-///Event for selecting operator
-$(".operator").click(selectOperator);
+/* EVENT FOR SELECTING OPERATOR */
+$(".operator").click(selectOperatorEvent);
 
-function selectOperator() {
+function selectOperatorEvent() {
 
-    let getLastCharacter = dp.text().length - 1;
+    let lastCharPosition = dp.text().length - 1;
 
-    ///Checking whether if the operator is already selected or display text is equal to zero
-    let checkCondition = dp.text()[getLastCharacter] === this.innerHTML || 
-    dp.text() == 0;
+    /// checking whether if the operator is already selected or display text is equal to zero 
+    let checkCondition = dp.text()[lastCharPosition] === this.innerHTML || dp.text() == 0;
 
     if (checkCondition)
     {
-        dp.text() = dp.text();
+        dp.text("0");
     } 
     else 
     {
@@ -65,7 +66,7 @@ function selectOperator() {
 }
 
 
-///EVENT WHEN PERCENTAGE IS SELECTED
+/* EVENT FOR PERCENTAGE SELECTION */
 $("#percentage").click(percentageEvent);
 
 function percentageEvent() {
@@ -90,7 +91,7 @@ function calulatePercentage(num1) {
 }
 
 
-///EVENT FOR EQUAL BUTTON
+/* EVENT FOR EQUAL BUTTON */
 $("#equals").click(equalBtnEvent);
 
 function equalBtnEvent() {
@@ -110,7 +111,7 @@ function equalBtnEvent() {
 }
 
 
-///CALCULATE SOLUTION 
+/* CALCULATE SOLUTION */
 function solve() {
 
     let answer, a;
@@ -151,7 +152,7 @@ function solve() {
 }
 
 
-///EVENT WHEN DECIMAL IS SELECTED
+/* EVENT FOR DECIMAL SELECTION */
 $("#decimal").click(decimalEvent);
 
 function decimalEvent() {
@@ -173,7 +174,7 @@ function decimalEvent() {
 }
 
 
-///EVENT FOR GETTING INPUT NUMBERS
+/* EVENT FOR GETTING INPUT NUMBERS */
 $(".number").click(getInputNumber);
 
 function getInputNumber() {
@@ -184,15 +185,19 @@ function getInputNumber() {
     {
         dp.text(this.innerHTML);
     } 
-    else if (dp.text() == arr[arr.length - 1]) 
+
+    /// checking if the last element of the array is equal to display text or not AND
+    /// checking whether or not operator is selected. 
+    /// To prevent display text setting to 0 when sign is toggled
+    else if (dp.text() == arr[arr.length - 1] && $(".col-4").hasClass("selected-optr")) 
     {
         dp.text("");
         $(".col-4").removeClass("selected-optr");
         dp.append(this.innerHTML);
     } 
-    else if (dp.text().length == 13) 
+    else if (dp.text().length === 13) 
     {
-        dp.text() == dp.text();
+        dp.text("0");
     } 
     else 
     {
