@@ -49,7 +49,6 @@ function selectOperator() {
     ///Checking whether if the operator is already selected or display text is equal to zero
     let checkCondition = dp.text()[getLastCharacter] === this.innerHTML || 
     dp.text() == 0;
-    // #2 issue - once an operator is selected another operator should not be showing selected
 
     if (checkCondition)
     {
@@ -60,6 +59,7 @@ function selectOperator() {
         optr.push(this.innerHTML);
         num1 = parseFloat(dp.text());
         arr.push(num1);
+        $(".operator").removeClass("selected-optr");
         $(this).addClass("selected-optr");
     }
 }
