@@ -1,7 +1,7 @@
 let dp = $("#display");
 let num1, num2;
 let arr = [];
-let optr = [];
+let operatorArray = [];
 let total;
 
 
@@ -12,7 +12,7 @@ function clearAll() {
 
     /// empty the number's array and operator's array
     arr = [];
-    optr = [];
+    operatorArray = [];
 
     /// set display text back to zero and remove any existing selected operator
     dp.text("0");
@@ -84,7 +84,7 @@ function selectOperatorEvent() {
     } 
     else 
     {
-        optr.push(this.innerHTML);
+        operatorArray.push(this.innerHTML);
         num1 = parseFloat(dp.text());
         arr.push(num1);
         $(".operator").removeClass("selected-operator");
@@ -154,8 +154,9 @@ $("#equals").click(equalBtnEvent);
 
 function equalBtnEvent() {
 
-    // if (dp.text() == 0 && $(".col-4").hasClass("selected-operator"))
-    if (dp.text() == 0)
+    /// this will allow to perform calculations such as 5 - 0 = 0, 5 + 0 = 0 etc.
+
+    if (dp.text() == 0 && $(".col-4").hasClass("selected-operator"))
     {
         dp.text("0");
     } 
@@ -174,7 +175,7 @@ function solve() {
 
     let answer, a;
 
-    switch (optr[optr.length - 1]) 
+    switch (operatorArray[operatorArray.length - 1]) 
     {
         case "+":
             answer = arr[arr.length - 2] + arr[arr.length - 1];
