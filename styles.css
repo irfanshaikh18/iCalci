@@ -110,3 +110,19 @@ button:focus {
   background-color: white;
   color: #fe9505;
 }
+
+footer {
+  margin: 60px;
+}
+
+.social-icons {
+  margin: 15px 10px;
+  font-size: 1.5rem;
+  color: rgb(214, 47, 69);
+}
+
+.copywrite {
+  font-family: sans-serif;
+  font-size: 1rem;
+  opacity: 0.8;
+}
