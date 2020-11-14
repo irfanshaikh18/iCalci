@@ -5,6 +5,32 @@ let operatorArray = [];
 let total;
 
 
+/* GET CURRENT TIME */
+setInterval(function() {
+    
+    let currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: "2-digit" });
+    $(".time").text(currentTime);
+
+}, 1000);
+
+
+/* TOGGLE THEME */
+$(".theme").click(function() {
+
+    $("main").toggleClass("main-light");
+    $(".btn").toggleClass("btn-light");
+    $(".row-1").toggleClass("row-1-light");
+    $(".col-4").toggleClass("col-4-light");
+});
+
+
+/* TOGGLE BUTTON SHAPE */
+$(".btn-shape").click(function() {
+
+    $("button").toggleClass("square-shape");
+});
+
+
 /* EVENT FOR CLEARING EVERYTHING */
 $("#clear").click(clearAll);
 
@@ -118,7 +144,7 @@ function getInputNumber() {
     /// checking for the maximum number of digits in the display i.e 13
     else if (dp.text().length === 13) 
     {
-        dp.text("0");
+        dp.text();
     } 
     else 
     {
